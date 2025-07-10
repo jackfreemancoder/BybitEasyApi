@@ -26,6 +26,26 @@ dotnet add package Bybit
 ```
 
 ## Usage
+
+```csharp
+ var client = new BybitClient(new BybitClientOptions
+        {
+            ApiCredentials = new ApiCredentials("your-api-key", "your-api-secret"),
+            // Make sure you set correct environment (mainnet/testnet) if needed
+        });
+
+        var result = await client.UnifiedApi.Withdraw.WithdrawAsync(
+            coin: "BTC",
+            chain: "BTC", // Or use "ETH", "ERC20", etc.
+            address: "your-self-custodial-wallet-address",
+            tag: null, // Optional for coins like XRP that require tag/memo
+            amount: 0.001m, // Amount to withdraw
+            accountType: AccountType.Unified, // Or AccountType.Contract, AccountType.Spot, etc.
+            fee: null, // Optional; usually automatically calculated
+            forceChain: false // Optional; set true to force withdraw on given chain
+        );
+
+```
 REST Endpoints
 ```csharp
 // Get the ETH/USDT ticker via rest request
